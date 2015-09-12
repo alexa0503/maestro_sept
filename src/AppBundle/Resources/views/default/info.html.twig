@@ -20,6 +20,11 @@
 		</div>
 	</div>
 {% endblock %}
+{% block stylesheets %}
+	<style>
+		body{ background:url({{ asset('bundles/app/default/') }}images/bg2.jpg) center top no-repeat;}
+	</style>
+{% endblock %}
 {% block javascripts %}
 	{{ parent() }}
 	<script>
