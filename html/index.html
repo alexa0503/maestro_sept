@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title></title>
+<link rel="stylesheet" href="css/common.css">
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<!--移动端版本兼容 -->
+<script type="text/javascript">
+         var phoneWidth =  parseInt(window.screen.width);
+         var phoneScale = phoneWidth/640;
+         var ua = navigator.userAgent;
+         if (/Android (\d+\.\d+)/.test(ua)){
+                   var version = parseFloat(RegExp.$1);
+                   if(version>2.3){
+                            document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+                   }else{
+                            document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+                   }
+         } else {
+                   document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+         }
+</script>
+<!--移动端版本兼容 end -->
+
+</head>
+<style>
+body{ background:url(images/bg.jpg) center top no-repeat;}
+</style>
+<body>
+<div class="outDiv">
+    <div class="page page1">
+        <div class="innerDiv">
+            <img src="images/indexImg1.png" class="abs indexImg1">
+            <img src="images/indexImg2.png" class="abs indexImg2">
+            <img src="images/indexImg3.png" class="abs indexImg3">
+            <div class="btnLine">
+                <a href="javascript:void(0);" onClick="goPage2();"><img src="images/indexBtn1.png"></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="page page2" style="display:none;">
+        <div class="innerDiv">
+            <img src="images/indexImg4.png" class="abs indexImg4">
+            <a href="javascript:void(0);" class="abs selBtn selBtn1"><img src="images/selBtn1.png"><img src="images/selImg1.png" class="abs selImg selImg1"></a>
+            <a href="javascript:void(0);" class="abs selBtn selBtn2"><img src="images/selBtn2.png"><img src="images/selImg2.png" class="abs selImg selImg2"></a>
+            <a href="javascript:void(0);" class="abs selBtn selBtn3"><img src="images/selBtn3.png"><img src="images/selImg3.png" class="abs selImg selImg3"></a>
+            <div class="btnLine2">
+                <a href="javascript:void(0);" onClick="goGame();"><img src="images/indexBtn2.png"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="images/logo.png" class="logo">
+
+<script>
+function goPage2(){
+	$('.page1').fadeOut(500);
+	$('.page2').fadeIn(500);
+	}
+	
+$(document).ready(function(){
+	$('.page').css('margin-top',(-(1039-wHeight)/6-40)+'px');
+	
+	$('.selBtn').click(function(){
+		$('.selBtn').removeClass('on');
+		$(this).addClass('on');
+		});
+	});
+	
+function goGame(){
+	var aIndex=$('.selBtn').index($('.on'));
+	if(aIndex<0){
+		alert('请选择教官');
+		return;
+		}
+		else{
+			if(aIndex==0){
+				window.location.href='{{ url("_game",{t:a}) }}';
+				}
+				else if(aIndex==1){
+					window.location.href='{{ url("_game",{t:b}) }}';
+					}
+					else if(aIndex==2){
+						window.location.href='{{ url("_game",{t:c}) }}';
+						}
+			}
+	}
+</script>
+
+</body>
+</html>

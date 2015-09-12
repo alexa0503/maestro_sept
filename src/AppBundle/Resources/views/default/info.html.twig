@@ -1,0 +1,58 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+	<div class="page">
+		<div class="innerDiv">
+			<div class="info">
+				<img src="{{ asset('bundles/app/default/') }}images/infoBg.png" class="gEndImg abs">
+				<input type="text" class="abs infoTxt infoTxt1" id="username">
+				<input type="text" class="abs infoTxt infoTxt2" id="address">
+				<input type="tel" maxlength="11" class="abs infoTxt infoTxt3" id="mobile">
+				<div class="btnLine3">
+					<a href="javascript:void(0);" onClick="submitInfo();"><img src="{{ asset('bundles/app/default/') }}images/submitBtn.png"></a>
+				</div>
+			</div>
+			<div class="sumbitSuccess" style="display:none;">
+				<img src="{{ asset('bundles/app/default/') }}images/submitedImg.png" class="abs submitedImg">
+				<div class="btnLine2">
+					<a href="{{ url('_index') }}"><img src="{{ asset('bundles/app/default/') }}images/shareEndBtn1.png"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).ready(function(){
+			$('.page').css('margin-top',(-(1039-wHeight)/6-40)+'px');
+		});
+
+		function submitInfo(){
+			var username = $('#username').val();
+			var address = $('#address').val();
+			var mobile = $('#mobile').val();
+			var re = /^1\d{10}$/;
+			if( username == '' ){
+				alert('用户名不能为空')
+			}
+			else if( address == ''){
+				alert('地址不能为空')
+			}
+			else if( !re.test(mobile)){
+				alert('手机号码填写不正确')
+			}
+			else{
+				$.post('{{ url("_post") }}',{username:username,address:address,mobile:mobile},function(json){
+					if(json.ret == 0 ){
+						$('.info').fadeOut(500);
+						$('.sumbitSuccess').fadeIn(500);
+					}
+					else{
+						alert(json.msg)
+					}
+				},"JSON")
+			}
+			
+			
+		}
+	</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+	<div class="page">
+        <div class="innerDiv">
+            <img src="{{ asset('bundles/app/default/') }}images/gEndImg{{ app.request.get('t') | upper }}.png" class="gEndImg abs">
+            <div class="btnLine">
+                <a href="javascript:void(0);" onClick="showShareNote();"><img src="{{ asset('bundles/app/default/') }}images/gEndBtn1.png"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block logo %}
+<img src="{{ asset('bundles/app/default/') }}images/logo.png" class="logo">
+<img src="{{ asset('bundles/app/default/') }}images/shareNoteImg.png" class="shareNoteImg" style="display:none;" onClick="closeShareNote();">
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+<script>
+function showShareNote(){
+	$('.shareNoteImg').fadeIn(500);
+	}
+	
+function closeShareNote(){
+	$('.shareNoteImg').fadeOut(500);
+	}
+</script>
+{% endblock %}
