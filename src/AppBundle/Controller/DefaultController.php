@@ -65,6 +65,13 @@ class DefaultController extends Controller
 		$session = $request->getSession();
 		$session->set('officer', $officer);
 		$session->set('wx_desc', '我正在接受'.$officer.'教官的超规格军训！');
+		$rand = rand(1,2);
+		if( $rand == 1){
+			$session->set('isWinner', 'y');
+		}
+		else{
+			$session->set('isWinner', 'n');
+		}
 		return $this->render('AppBundle:default:share.html.twig');
 	}
 	/**
@@ -80,7 +87,7 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/finish", name="_finish")
 	 */
-	public function finishAction()
+	public function finishAction(Request $request)
 	{
 		$session = $request->getSession();
 		$officer = $session->get('officer');

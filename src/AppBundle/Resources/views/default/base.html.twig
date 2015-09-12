@@ -50,6 +50,11 @@
 					trigger: function (res) {
 					},
 					success: function (res) {
+						{% if app.session.get('isWinner') == 'y' %}
+						location.href = "{{ url('_info') }}";
+						{% elseif app.session.get('isWinner') == 'n' %}
+						location.href = "{{ url('_finish') }}";
+						{% endif %}
 					},
 					cancel: function (res) {
 					},
@@ -64,6 +69,11 @@
 					trigger: function (res) {
 					},
 					success: function (res) {
+						{% if app.session.get('isWinner') == 'y' %}
+						location.href = "{{ url('_info') }}";
+						{% elseif app.session.get('isWinner') == 'n' %}
+						location.href = "{{ url('_finish') }}";
+						{% endif %}
 					},
 					cancel: function (res) {
 					},

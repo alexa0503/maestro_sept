@@ -69,6 +69,7 @@ class OAuthListener
 			$session->set('wx_desc', '我正在接受教官的超规格军训！');
 			$session->set('wx_img_url', 'images/share.jpg');
 		}
+		$session->set('isWinner', null);
 	}
 	/*
 	public function onKernelResponse(FilterResponseEvent $event)
