@@ -26,23 +26,55 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/game/{t}", name="_game")
 	 */
-	public function gameAction($t = 'a')
+	public function gameAction(Request $request, $t = 'a')
 	{
-
-		return $this->render('AppBundle:default:game/'.strtolower($t).'.html.twig');
+		$t = strtolower($t);
+		switch ($t) {
+			case 'a':
+				$officer = '金完美';
+				break;
+			case 'b':
+				$officer = '宁排长';
+				break;
+			default:
+				$officer = '暖男杨';
+				$t = 'c';
+				break;
+		}
+		$session = $request->getSession();
+		$session->set('wx_desc', '我正在接受'.$officer.'教官的超规格军训！');
+		return $this->render('AppBundle:default:game/'.$t.'.html.twig');
 	}
 	/**
 	 * @Route("/share/{t}", name="_share")
 	 */
-	public function shareAction($t = 'a')
+	public function shareAction(Request $request, $t = 'a')
 	{
+		$t = strtolower($t);
+		switch ($t) {
+			case 'a':
+				$officer = '金完美';
+				break;
+			case 'b':
+				$officer = '宁排长';
+				break;
+			default:
+				$officer = '暖男杨';
+				break;
+		}
+		$session = $request->getSession();
+		$session->set('officer', $officer);
+		$session->set('wx_desc', '我正在接受'.$officer.'教官的超规格军训！');
 		return $this->render('AppBundle:default:share.html.twig');
 	}
 	/**
 	 * @Route("/info", name="_info")
 	 */
-	public function infoAction()
+	public function infoAction(Request $request)
 	{
+		$session = $request->getSession();
+		$officer = $session->get('officer');
+		$session->set('wx_desc', '我正在接受'.$officer.'教官的超规格军训！');
 		return $this->render('AppBundle:default:info.html.twig');
 	}
 	/**
@@ -50,6 +82,9 @@ class DefaultController extends Controller
 	 */
 	public function finishAction()
 	{
+		$session = $request->getSession();
+		$officer = $session->get('officer');
+		$session->set('wx_desc', '我正在接受'.$officer.'教官的超规格军训！');
 		return $this->render('AppBundle:default:finish.html.twig');
 	}
 	/**
@@ -61,6 +96,7 @@ class DefaultController extends Controller
 			'ret' => 0,
 			'msg' => '',
 		);
+		$session = $request->getSession();
 		if( $request->getMethod() == "POST"){
 			$em = $this->getDoctrine()->getEntityManager();
 			$repo = $em->getRepository('AppBundle:Info');
@@ -90,10 +126,12 @@ class DefaultController extends Controller
 				$info->setUsername($request->get('username'));
 				$info->setAddress($request->get('address'));
 				$info->setMobile($request->get('mobile'));
-	                $info->setCreateIp($request->getClientIp());
-	                $info->setCreateTime(new \DateTime('now'));
+	            	$info->setCreateIp($request->getClientIp());
+	            	$info->setCreateTime(new \DateTime('now'));
 				$em->persist($info);
 				$em->flush();
+				$officer = $session->get('officer');
+				$return['wx_desc'] = $request->get('username').'正在接受'.$officer.'教官的超规格军训！';
 			}
 		}
 		else{

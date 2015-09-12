@@ -21,6 +21,7 @@
 	</div>
 {% endblock %}
 {% block javascripts %}
+	{{ parent() }}
 	<script>
 		$(document).ready(function(){
 			$('.page').css('margin-top',(-(1039-wHeight)/6-40)+'px');
@@ -43,6 +44,8 @@
 			else{
 				$.post('{{ url("_post") }}',{username:username,address:address,mobile:mobile},function(json){
 					if(json.ret == 0 ){
+						wxData.shareDesc = json.wx_desc;
+						wxShare(wxData);
 						$('.info').fadeOut(500);
 						$('.sumbitSuccess').fadeIn(500);
 					}

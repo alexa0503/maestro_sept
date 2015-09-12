@@ -12,6 +12,7 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
 <script>
 $(document).ready(function(){
 	$('.page').css('margin-top',(-(1039-wHeight)/6-40)+'px');
