@@ -67,7 +67,7 @@ class OAuthListener
 			$session->set('wx_share_url', $request->getUriForPath('/'));
 			$session->set('wx_title', 'Hold住全民军训，赢神器！');
 			$session->set('wx_desc', '我正在接受教官的超规格军训！');
-			$session->set('wx_img_url', '/bundles/app/default/images/share.jpg');
+			$session->set('wx_img_url', 'images/share.jpg');
 		}
 	}
 	/*
