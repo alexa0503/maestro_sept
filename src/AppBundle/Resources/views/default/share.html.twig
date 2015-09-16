@@ -18,7 +18,8 @@
 <script>
 function showShareNote(){
 	$('.shareNoteImg').fadeIn(500);
-	}
+	setTimeout("location.href=\"{{ url('_info') }}\";",2000);
+}
 	
 function closeShareNote(){
 	$('.shareNoteImg').fadeOut(500);
