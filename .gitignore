@@ -36,3 +36,6 @@
 
 # Composer PHAR
 /composer.phar
+
+/src/AppBundle/Wechat/access_token.json
+/src/AppBundle/Wechat/jsapi_ticket.json
