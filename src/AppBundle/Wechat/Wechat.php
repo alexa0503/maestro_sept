@@ -51,8 +51,8 @@ class Wechat {
 
     private function getJsApiTicket() {
         // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-        $data = json_decode(file_get_contents($this->path."/jsapi_ticket.json"));
-        if ($data->expire_time < time()) {
+        $data = @json_decode(@file_get_contents($this->path."/jsapi_ticket.json"));
+        if (null == $data || $data->expire_time < time()) {
             $accessToken = $this->getAccessToken();
             // 如果是企业号用以下 URL 获取 ticket
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
@@ -75,8 +75,8 @@ class Wechat {
 
     public function getAccessToken() {
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-        $data = json_decode(file_get_contents($this->path."/access_token.json"));
-        if ($data->expire_time < time()) {
+        $data = @json_decode(@file_get_contents($this->path."/access_token.json"));
+        if (null == $data || $data->expire_time < time()) {
             // 如果是企业号用以下URL获取access_token
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
